@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kongkritchanat Butsaman - My Personal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    :root {
+      --accent: #60a5fa;
+      --accent2: #a78bfa;
+      --pink: #f472b6;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+    }
+    body {
+      font-family: "Sarabun", "Noto Sans Thai", system-ui, sans-serif;
+      line-height: 1.7;
+      color: #e5e7eb;
+      background: #0b0f1a;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11, 15, 26, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      height: 68px; display: flex; align-items: center; justify-content: space-between;
+      position: relative;
+    }
+    .logo {
+      font-weight: 800; font-size: 1.15rem; text-decoration: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .menu { display: flex; gap: 8px; list-style: none; }
+    .menu a {
+      color: #9ca3af; text-decoration: none; font-weight: 500;
+      padding: 8px 14px; border-radius: 999px; transition: all .25s;
+    }
+    .menu a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .menu a.active { color: #fff; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .menu-toggle {
+      display: none; background: none; border: none; color: #fff;
+      font-size: 1.6rem; cursor: pointer;
+    }
+
+    /* Hero */
+    header {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 20px 80px;
+      background: radial-gradient(circle at 20% 20%, #1e3a8a 0%, transparent 45%),
+                  radial-gradient(circle at 80% 70%, #5b21b6 0%, transparent 45%),
+                  #0b0f1a;
+    }
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(60px); opacity: .45;
+      animation: float 10s ease-in-out infinite;
+    }
+    .blob.b1 { width: 260px; height: 260px; background: #3b82f6; top: 10%; left: 8%; }
+    .blob.b2 { width: 320px; height: 320px; background: #a855f7; bottom: 5%; right: 6%; animation-delay: -4s; }
+    .blob.b3 { width: 180px; height: 180px; background: #ec4899; top: 55%; left: 60%; animation-delay: -7s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.08); }
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .tag {
+      display: inline-block; padding: 6px 16px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.05);
+      font-size: .9rem; color: #cbd5e1; margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.2;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #fff, #93c5fd, #c4b5fd);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    header p { font-size: 1.2rem; color: #94a3b8; }
+    .btn {
+      display: inline-block; margin-top: 30px; padding: 14px 32px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff; border-radius: 999px; text-decoration: none; font-weight: 600;
+      box-shadow: 0 10px 30px rgba(96,165,250,.35); transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(167,139,250,.45); }
+
+    /* Layout */
+    main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 90px 0; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-title { text-align: center; margin-bottom: 48px; }
+    .section-title span {
+      display: block; font-size: .85rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .section-title h2 { font-size: 2.2rem; color: #fff; }
+
+    /* Personal */
+    .personal-wrap {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center;
+    }
+    .photo-col { display: flex; flex-direction: column; gap: 18px; }
+    .photo-frame {
+      position: relative; border-radius: 24px; padding: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--pink));
+      box-shadow: 0 20px 50px rgba(0,0,0,.5);
+      transition: transform .4s;
+    }
+    .photo-frame:hover { transform: translateY(-6px) rotate(-1deg); }
+    .photo-frame img {
+      width: 100%; height: 460px; object-fit: cover; object-position: center 30%;
+      border-radius: 20px; display: block; background: #111827;
+    }
+    .photo-fallback {
+      display: none; height: 460px; border-radius: 20px;
+      align-items: center; justify-content: center; font-size: 5rem; font-weight: 800;
+      background: #111827; color: var(--accent);
+    }
+    .photo-caption {
+      text-align: center; color: #94a3b8; font-size: .98rem;
+      padding: 14px 20px; border-radius: 16px;
+      background: var(--card); border: 1px solid var(--border);
+    }
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 36px; backdrop-filter: blur(8px);
+    }
+    .info-card h3 { font-size: 1.6rem; color: #fff; margin-bottom: 6px; }
+    .info-card .role { color: var(--accent); font-weight: 500; margin-bottom: 20px; }
+    .info-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .ic {
+      width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+      background: rgba(96,165,250,.12);
+    }
+    .info-row .label { color: #94a3b8; font-size: .85rem; }
+    .info-row .value { color: #fff; font-weight: 600; word-break: break-all; }
+
+    /* Hobby & Favorite */
+    .grid {
+      display: grid; gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .item {
+      position: relative; overflow: hidden;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 36px 28px; text-align: center;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .item::before {
+      content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+      background: linear-gradient(135deg, rgba(96,165,250,.15), rgba(167,139,250,.15));
+    }
+    .item:hover { transform: translateY(-8px); border-color: rgba(96,165,250,.4); box-shadow: 0 20px 40px rgba(0,0,0,.4); }
+    .item:hover::before { opacity: 1; }
+    .item > * { position: relative; }
+    .item .icon { font-size: 3rem; margin-bottom: 14px; }
+    .item h3 { color: #fff; font-size: 1.3rem; margin-bottom: 8px; }
+    .item p { color: #94a3b8; }
+
+    /* Equalizer */
+    .eq { display: flex; justify-content: center; align-items: flex-end; gap: 4px; height: 26px; margin-top: 14px; }
+    .eq span {
+      width: 5px; background: linear-gradient(var(--accent), var(--pink)); border-radius: 3px;
+      animation: eq 1s ease-in-out infinite;
+    }
+    .eq span:nth-child(2) { animation-delay: .2s; }
+    .eq span:nth-child(3) { animation-delay: .4s; }
+    .eq span:nth-child(4) { animation-delay: .1s; }
+    .eq span:nth-child(5) { animation-delay: .3s; }
+    @keyframes eq { 0%,100% { height: 6px; } 50% { height: 26px; } }
+
+    /* Song player */
+    .song-box {
+      margin-top: 22px; border-radius: 16px; overflow: hidden;
+      background: rgba(0,0,0,.25); border: 1px solid var(--border);
+      min-height: 80px; display: flex; align-items: center; justify-content: center;
+    }
+    .song-box iframe { width: 100%; height: 152px; border: 0; display: block; }
+    .song-empty { color: #64748b; font-size: .9rem; padding: 24px; }
+    .song-title { margin-top: 12px; color: #cbd5e1; font-size: .95rem; }
+    .song-edit-btn {
+      display: none; margin-top: 12px; padding: 10px 18px; border: none; border-radius: 999px;
+      cursor: pointer; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff; font: inherit; font-weight: 600;
+    }
+
+    /* Contact */
+    .contact-box {
+      max-width: 620px; margin: 0 auto; text-align: center; padding: 48px 32px;
+      background: linear-gradient(135deg, rgba(96,165,250,.12), rgba(244,114,182,.12));
+      border: 1px solid var(--border); border-radius: 28px;
+    }
+    .contact-box p { color: #cbd5e1; margin-bottom: 20px; font-size: 1.05rem; }
+    .contact-buttons {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
+    }
+    .ig-btn, .mail-btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px;
+      border-radius: 999px; text-decoration: none; color: #fff; font-weight: 700; font-size: 1.05rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .2s;
+    }
+    .ig-btn {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      box-shadow: 0 10px 30px rgba(220,39,67,.35);
+    }
+    .mail-btn {
+      background: linear-gradient(90deg, #ea4335, #fbbc05);
+      box-shadow: 0 10px 30px rgba(234,67,53,.35);
+    }
+    .ig-btn:hover, .mail-btn:hover { transform: translateY(-3px) scale(1.03); }
+
+    footer {
+      text-align: center; padding: 28px; color: #64748b; font-size: .9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ===== Edit mode ===== */
+    .edit-toggle {
+      position: fixed; bottom: 20px; left: 20px; z-index: 300;
+      padding: 12px 20px; cursor: pointer;
+      border-radius: 999px; border: 1px solid #60a5fa;
+      background: #111827; color: #fff; font: inherit; font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+    .edit-toggle:hover { background: #1f2937; }
+    .editbar {
+      display: none; position: fixed; bottom: 80px; right: 20px; z-index: 300;
+      flex-direction: column; gap: 8px; padding: 14px; max-width: 260px;
+      background: rgba(17,24,39,.96); border: 1px solid var(--border);
+      border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    }
+    .editbar button {
+      padding: 10px 16px; border: none; border-radius: 10px; cursor: pointer;
+      font: inherit; font-weight: 600; color: #fff; text-align: left; white-space: nowrap;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .editbar button.secondary { background: #374151; }
+    .editbar button.danger { background: #b91c1c; }
+    .editbar .hint { color: #94a3b8; font-size: .8rem; }
+
+    body.edit-mode .editbar { display: flex; }
+    body.edit-mode [data-key] {
+      outline: 1px dashed rgba(96,165,250,.6); outline-offset: 4px; border-radius: 4px; cursor: text;
+    }
+    body.edit-mode [data-key]:hover { background: rgba(96,165,250,.08); }
+    body.edit-mode [data-key]:focus { outline: 2px solid var(--pink); background: rgba(255,255,255,.05); }
+    body.edit-mode .ig-btn, body.edit-mode .mail-btn { outline: 2px dashed #fde68a; outline-offset: 4px; cursor: pointer; }
+    body.edit-mode .song-edit-btn { display: inline-block; }
+
+    .photo-edit-btn {
+      display: none; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+      z-index: 2; padding: 10px 18px; border: none; border-radius: 999px; cursor: pointer;
+      background: rgba(11,15,26,.85); color: #fff; font: inherit; font-weight: 600;
+      white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,.5);
+    }
+    body.edit-mode .photo-edit-btn { display: block; }
+
+    .toast {
+      position: fixed; top: 84px; left: 50%; transform: translateX(-50%) translateY(-20px);
+      z-index: 400; padding: 12px 22px; border-radius: 12px; background: #065f46; color: #fff;
+      font-weight: 600; opacity: 0; pointer-events: none; transition: all .3s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Mobile */
+    @media (max-width: 800px) {
+      .menu-toggle { display: block; }
+      .menu {
+        display: none; position: absolute; top: 68px; left: 0; right: 0;
+        flex-direction: column; gap: 0; padding: 8px 0;
+        background: rgba(11,15,26,.97); border-bottom: 1px solid var(--border);
+      }
+      .menu.open { display: flex; }
+      .menu a { display: block; border-radius: 0; padding: 14px 20px; }
+      .personal-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .photo-frame img { height: 380px; }
+      section { padding: 64px 0; }
+      .editbar { right: 10px; bottom: 70px; }
+      .edit-toggle { left: 10px; bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="#home">Kongkritchanat B.</a>
+      <button class="menu-toggle" aria-label="เปิดเมนู" onclick="document.querySelector('.menu').classList.toggle('open')">☰</button>
+      <ul class="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#personal">My personal</a></li>
+        <li><a href="#hobby">Hobby</a></li>
+        <li><a href="#favorite">Favorite</a></li>
+        <li><a href="#contact">Contact me</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="home">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="hero-content">
+      <span class="tag" data-key="tag">👋 Welcome to my world</span>
+      <h1 data-key="hero-title">Kongkritchanat Butsaman</h1>
+      <p data-key="hero-sub">ยินดีต้อนรับสู่หน้าเว็บส่วนตัวของฉัน</p>
+      <a class="btn" href="#personal">ดูข้อมูลเพิ่มเติม</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="personal">
+      <div class="section-title">
+        <span data-key="personal-kicker">About me</span>
+        <h2 data-key="personal-title">My personal</h2>
+      </div>
+      <div class="personal-wrap">
+        <div class="photo-col">
+          <div class="photo-frame">
+            <img id="profilePhoto" src="photo.jpg" alt="Kongkritchanat Butsaman"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="photo-fallback">KB</div>
+            <button class="photo-edit-btn" type="button" id="photoBtn">📷 เปลี่ยนรูป</button>
+          </div>
+          <p class="photo-caption" data-key="photo-caption">เลือกมุมนี้ทุกวัน ยิ้มไว้ก่อนเสมอ 📸</p>
+        </div>
+        <div class="info-card">
+          <h3 data-key="card-name">Kongkritchanat Butsaman</h3>
+          <div class="role" data-key="role">Gamer • Music Lover</div>
+          <div class="info-row">
+            <div class="ic">👤</div>
+            <div><div class="label">Name</div><div class="value" data-key="info-name">Kongkritchanat Butsaman</div></div>
+          </div>
+          <div class="info-row">
+            <div class="ic">🎮</div>
+            <div><div class="label">Hobby</div><div class="value" data-key="info-hobby">Gaming</div></div>
+          </div>
+          <div class="info-row">
+            <div class="ic">🎧</div>
+            <div><div class="label">Favorite</div><div class="value" data-key="info-fav">Listening to music</div></div>
+          </div>
+          <div class="info-row">
+            <div class="ic">📸</div>
+            <div><div class="label">Contact</div><div class="value" id="infoContact">IG: Jxyz_xxx</div></div>
+          </div>
+          <div class="info-row">
+            <div class="ic">✉️</div>
+            <div><div class="label">Gmail</div><div class="value" id="infoGmail">your-email@gmail.com</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hobby">
+      <div class="section-title">
+        <span data-key="hobby-kicker">What I do</span>
+        <h2 data-key="hobby-title">Hobby</h2>
+      </div>
+      <div class="grid">
+        <div class="item">
+          <div class="icon">🎮</div>
+          <h3 data-key="hobby-name">Gaming</h3>
+          <p data-key="hobby-desc">ชอบเล่นเกมในเวลาว่าง ผ่อนคลายและสนุกไปกับการแข่งขัน</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="favorite">
+      <div class="section-title">
+        <span data-key="fav-kicker">What I love</span>
+        <h2 data-key="fav-title">Favorite</h2>
+      </div>
+      <div class="grid">
+        <div class="item">
+          <div class="icon">🎧</div>
+          <h3 data-key="fav-name">Listening to music</h3>
+          <p data-key="fav-desc">ฟังเพลงเป็นงานอดิเรกที่ชอบที่สุด</p>
+          <div class="eq"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="song-box" id="songBox">
+            <span class="song-empty">ยังไม่มีเพลงที่ชอบ</span>
+          </div>
+          <div class="song-title" data-key="song-title">🎵 เพลงที่ชอบที่สุด</div>
+          <button class="song-edit-btn" type="button" id="songBtn">🎵 ใส่ลิงก์เพลง</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <span data-key="contact-kicker">Let's talk</span>
+        <h2 data-key="contact-title">Contact me</h2>
+      </div>
+      <div class="contact-box">
+        <p data-key="contact-desc">ติดต่อพูดคุยได้ผ่าน Instagram หรือ Gmail</p>
+        <div class="contact-buttons">
+          <a class="ig-btn" id="igLink" href="https://www.instagram.com/Jxyz_xxx" target="_blank" rel="noopener noreferrer">
+            <span id="igLabel">📸 IG: Jxyz_xxx</span>
+          </a>
+          <a class="mail-btn" id="gmailLink" href="mailto:your-email@gmail.com">
+            <span id="gmailLabel">✉️ your-email@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-key="footer">&copy; 2026 Kongkritchanat Butsaman. All rights reserved.</p>
+  </footer>
+
+  <!-- ปุ่มแก้ไขเว็บ (แสดงตลอด) -->
+  <button class="edit-toggle" id="editToggle" type="button">✏️ แก้ไขเว็บ</button>
+
+  <div class="editbar" id="editbar">
+    <div class="hint">คลิกข้อความเพื่อแก้ไข · กดรูปเพื่อเปลี่ยนรูป · คลิกปุ่ม IG หรือ Gmail เพื่อเปลี่ยน · ใส่ลิงก์ YouTube หรือ Spotify ในส่วนเพลง</div>
+    <button type="button" id="saveBtn">💾 บันทึก</button>
+    <button type="button" id="exportBtn" class="secondary">⬇️ ดาวน์โหลดไฟล์ใหม่</button>
+    <button type="button" id="resetBtn" class="danger">↺ ล้างการแก้ไข</button>
+  </div>
+
+  <input type="file" id="fileInput" accept="image/*" hidden>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'kb-personal-site';
+    const body = document.body;
+    const photo = document.getElementById('profilePhoto');
+    const fileInput = document.getElementById('fileInput');
+    const igLink = document.getElementById('igLink');
+    const igLabel = document.getElementById('igLabel');
+    const infoContact = document.getElementById('infoContact');
+    const gmailLink = document.getElementById('gmailLink');
+    const gmailLabel = document.getElementById('gmailLabel');
+    const infoGmail = document.getElementById('infoGmail');
+    const toastEl = document.getElementById('toast');
+    const editToggle = document.getElementById('editToggle');
+    const songBox = document.getElementById('songBox');
+
+    /* ---------- Utilities ---------- */
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toast.t);
+      toast.t = setTimeout(() => toastEl.classList.remove('show'), 2200);
+    }
+
+    function setIG(username) {
+      igLink.href = 'https://www.instagram.com/' + username;
+      igLabel.textContent = '📸 IG: ' + username;
+      infoContact.textContent = 'IG: ' + username;
+    }
+
+    function getIGUsername() {
+      return igLink.g
